@@ -95,18 +95,21 @@ end
 
 
 local function drawTitle()
-	if menus[currentMenu] then
-		local x = menus[currentMenu].x + menuWidth / 2
-		local y = menus[currentMenu].y + titleHeight / 2
+    if menus[currentMenu] then
+      if menus[currentMenu].texture ~= nil then
+        RequestStreamedTextureDict(menus[currentMenu].texture)
+        local x = menus[currentMenu].x + menuWidth / 2
+        local y = menus[currentMenu].y + titleHeight / 2
 
-		if menus[currentMenu].titleBackgroundSprite then
-			DrawSprite(menus[currentMenu].titleBackgroundSprite.dict, menus[currentMenu].titleBackgroundSprite.name, x, y, menuWidth, titleHeight, 0., 255, 255, 255, 255)
-		else
-			drawRect(x, y, menuWidth, titleHeight, menus[currentMenu].titleBackgroundColor)
-		end
+        DrawSprite(menus[currentMenu].texture, menus[currentMenu].texture, x, y, menuWidth, titleHeight, 0.0, 255, 255, 255, 255)
+      else
+        local x = menus[currentMenu].x + menuWidth / 2
+        local y = menus[currentMenu].y + titleHeight / 2
 
-		drawText(menus[currentMenu].title, x, y - titleHeight / 2 + titleYOffset, menus[currentMenu].titleFont, menus[currentMenu].titleColor, titleScale, true)
-	end
+        drawRect(x, y, menuWidth, titleHeight, menus[currentMenu].titleBackgroundColor)
+        drawText(menus[currentMenu].title, x, y - titleHeight / 2 + titleYOffset, menus[currentMenu].titleFont, menus[currentMenu].titleColor, titleScale, true)
+      end
+    end
 end
 
 
